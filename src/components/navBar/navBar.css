@@ -8,7 +8,7 @@
     width: 100%;
     position: sticky;
     top: 0;
-    background-color: darkcyan;
+    background-color: #5D4E6D;
     width: 100%;
 }
 
@@ -21,10 +21,11 @@
     margin: 20px;
     justify-self: center;
     align-self: center;
-    border: 2px solid white;
+    border: 2px solid #B8C0AF;
     border-radius: 5px;
     width: auto;
     padding: 8px;
+    color: #B8C0AF;
 }
 
 .navBarItems:hover {
@@ -40,4 +41,5 @@
     margin: 20px;
     align-self: center;
     font-size: 35px;
+    color: #C1B7CC;
 }

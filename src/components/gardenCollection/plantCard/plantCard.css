@@ -1,0 +1,42 @@
+.plantCard {
+    border: 2px solid #718E67;
+    border-radius: 10px;
+    width: 95%;
+    min-height: 200px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: .5fr 1fr;
+}
+
+.plantCardName {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    width: 75%;
+    align-self: center;
+    justify-self: center;
+    margin: 0 auto;
+    padding-top: 18px;
+}
+
+.plantInfoTable {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    width: 80%;
+    height: 80%;
+    align-self: center;
+    justify-self: center;
+    margin: 0 auto;
+    border-collapse: separate;
+}
+
+.plantInfoTable .plantCardLabel {
+    text-align: left;
+    padding: 10px;
+    max-width: 1fr;
+}
+
+.plantInfoTable .plantCardData {
+    text-align: left;
+    padding: 10px;
+    max-width: 1fr;
+}

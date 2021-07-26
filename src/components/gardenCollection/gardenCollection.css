@@ -1,0 +1,9 @@
+.gardenCollection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 15px;
+    justify-content: space-between;
+    align-content: space-between;
+    padding: 20px;
+    place-items: center;
+}
