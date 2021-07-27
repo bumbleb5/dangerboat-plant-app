@@ -6,6 +6,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: .5fr 1fr;
+    background-color: #FFFF;
 }
 
 .plantCardName {
@@ -16,6 +17,7 @@
     justify-self: center;
     margin: 0 auto;
     padding-top: 18px;
+    color: #51445F;
 }
 
 .plantInfoTable {
