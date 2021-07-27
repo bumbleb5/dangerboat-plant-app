@@ -1,8 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './plantCard.css';
 
 class PlantCard extends React.Component {
+
+
+
     constructor(props) {
         super(props);
     }
@@ -11,7 +15,7 @@ class PlantCard extends React.Component {
         return (
             <div className="plantCard">
                 <div>
-                    <h2 className="plantCardName">{ this.props.plant.name }</h2>
+                    <Link className="plantCardName" to={"/plantDetails/" + this.props.plant.id}><h2>{ this.props.plant.name }</h2></Link>
                 </div>
                 <div>
                     <table className="plantInfoTable">
