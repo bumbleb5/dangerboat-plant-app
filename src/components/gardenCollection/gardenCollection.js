@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PlantCard from './plantCard/plantCard';
 import './gardenCollection.css';
 

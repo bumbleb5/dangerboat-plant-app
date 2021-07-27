@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import GardenCollection from './components/gardenCollection/gardenCollection.js';
+import PlantView from './components/gardenCollection/plantView/plantView';
 import NavBar from './components/navBar/navBar';
 import logo from './logo.svg';
 import './App.css';
@@ -22,6 +23,8 @@ class App extends React.Component {
                     </Route> */}
                     <Route exact path="/">
                         <GardenCollection />
+                    </Route>
+                    <Route path="/plantView/:plantId" component={ PlantView }>
                     </Route>
                 </Switch>
             </main>
