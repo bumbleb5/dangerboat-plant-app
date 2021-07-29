@@ -7,6 +7,7 @@ class PlantInfo extends React.Component {
         return (
             <div className="plantInfoCard">
                 <h4>Hello Plant Info</h4>
+                {/* ToDo get rid of table, refactor */}
                 <table className="plantInfoCardTable">
                     <tr>
                         <td>Botanical Name</td>
