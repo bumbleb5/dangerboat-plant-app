@@ -28,6 +28,10 @@
     color: #B8C0AF;
 }
 
+.navBarItems {
+    text-decoration: none;
+}
+
 .navBarItems:hover {
     color: lightblue;
 }

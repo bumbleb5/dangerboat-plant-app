@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 
 import GardenCollection from './components/gardenCollection/gardenCollection.js';
 import PlantView from './components/gardenCollection/plantView/plantView';
+import AddPlantForm from './components/addPlantForm/addPlantForm';
+import AddCareForm from './components/addCareForm/addCareForm';
 import NavBar from './components/navBar/navBar';
 import logo from './logo.svg';
 import './App.css';
@@ -18,9 +20,12 @@ class App extends React.Component {
             <main className="App">
                 <NavBar />
                 <Switch basename="/">
-                    {/* <Route path="addPlant">
-                        <AddPlant />
-                    </Route> */}
+                    <Route path="/addPlant">
+                        <AddPlantForm />
+                    </Route>
+                    <Route path="/addCare">
+                        <AddCareForm />
+                    </Route>
                     <Route exact path="/">
                         <GardenCollection />
                     </Route>
