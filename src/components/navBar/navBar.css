@@ -1,49 +1,55 @@
 .navBar {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    width: 100%;
-    position: sticky;
-    top: 0;
-    background-color: #5D4E6D;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: #5d4e6d;
+  width: 100%;
+}
+
+.navBarTitle h2 {
+  margin: 0;
 }
 
 .navBarItems h3 {
-    font-family: Arial, Helvetica, sans-serif;
-    position: relative;
-    text-align: right;
-    flex-grow: 1;
-    text-decoration: none;
-    margin: 20px;
-    justify-self: center;
-    align-self: center;
-    border: 2px solid #B8C0AF;
-    border-radius: 5px;
-    width: auto;
-    padding: 8px;
-    color: #B8C0AF;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  text-align: right;
+  flex-grow: 1;
+  text-decoration: none;
+  margin: 20px;
+  justify-self: center;
+  align-self: center;
+  border: 2px solid #b8c0af;
+  border-radius: 5px;
+  width: auto;
+  padding: 8px;
+  color: #b8c0af;
 }
 
 .navBarItems {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .navBarItems:hover {
-    color: lightblue;
+  color: lightblue;
 }
 
 .navBarTitle {
-    font-family: Arial, Helvetica, sans-serif;
-    position: relative;
-    text-align: left;
-    flex-grow: 2;
-    text-decoration: none;
-    margin: 20px;
-    align-self: center;
-    font-size: 35px;
-    color: #C1B7CC;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  text-align: left;
+  flex-grow: 2;
+  text-decoration: none;
+  margin: 20px;
+  align-self: center;
+  font-size: 35px;
+  color: #c1b7cc;
+  margin: 0;
+  padding-left: 15px;
 }
