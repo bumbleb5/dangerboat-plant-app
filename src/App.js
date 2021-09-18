@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+import plantService from './services/plantService';
 
 import GardenCollection from './components/gardenCollection/gardenCollection.js';
 import PlantView from './components/plantView/plantView';
@@ -14,6 +15,9 @@ class App extends React.Component {
     
     constructor(props) {
         super(props);
+        this.state = {
+            plants: [],
+        };
     }
 
     componentDidMount() {
@@ -23,6 +27,13 @@ class App extends React.Component {
         //     const plants = JSON.parse(JSON.stringify(response.data));
         //     console.log(plants);
         // });
+        plantService.fetchPlants().then((plantArr) => {
+            console.log('IN MAIN APP');
+            console.log(plantArr);
+            this.setState({
+                plants: plantArr
+            });
+        });
     }
 
     render() {
@@ -37,7 +48,7 @@ class App extends React.Component {
                         <AddCareForm />
                     </Route>
                     <Route exact path="/">
-                        <GardenCollection />
+                        <GardenCollection plants={this.state.plants}/>
                     </Route>
                     <Route path="/plantView/:plantId" component={ PlantView }>
                     </Route>
