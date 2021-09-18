@@ -12,18 +12,23 @@ class PlantCard extends React.Component {
         }
     }
 
+    // componentDidMount() {
+    //     console.log('Hello Plant Card');
+    //     console.log(this.state.plant);
+    // }
+
     render() {
         return (
             <div className="plantCard">
                 <div>
-                    <Link className="plantCardName" to={ "/plantView/" + this.state.plant.id } plant={ this.state.plant }><h2>{ this.state.plant.name }</h2></Link>
+                    <Link className="plantCardName" to={ "/plantView/" + this.state.plant.plantId } plant={ this.state.plant }><h2>{ this.state.plant.commonName }</h2></Link>
                 </div>
                 <div>
                     <table className="plantInfoTable">
                         <tbody>
                             <tr>
                                 <td className="plantCardLabel">Water needs: </td>
-                                <td className="plantCardData">{ this.state.plant.waterNeeds ? this.state.plant.waterNeeds : 'add water needs' }</td>
+                                <td className="plantCardData">{ this.state.plant.waterPref ? this.state.plant.waterPref : 'add water needs' }</td>
                             </tr>
                             <tr>
                                 <td className="plantCardLabel">Acquired: </td>

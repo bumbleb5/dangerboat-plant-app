@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import axios from 'axios';
 
 import GardenCollection from './components/gardenCollection/gardenCollection.js';
-import PlantView from './components/gardenCollection/plantView/plantView';
+import PlantView from './components/plantView/plantView';
 import AddPlantForm from './components/addPlantForm/addPlantForm';
 import AddCareForm from './components/addCareForm/addCareForm';
 import NavBar from './components/navBar/navBar';
@@ -13,6 +14,15 @@ class App extends React.Component {
     
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        // // TODO: refactor for plantsService
+        // console.log('Getting plants');
+        // axios.get('/plants').then((response) => {
+        //     const plants = JSON.parse(JSON.stringify(response.data));
+        //     console.log(plants);
+        // });
     }
 
     render() {

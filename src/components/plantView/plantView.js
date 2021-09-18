@@ -14,17 +14,17 @@ class PlantView extends React.Component {
     render() {
         return (
             <div>
-                <div className="plantViewBackLinkDiv">
-                    <Link to="/" className="plantViewBackLink">Back to Garden</Link>
-                </div>
                 <div className="plantViewDiv">
-                    
                     <div className="plantViewTopContainer">
-                        
                         <h2 className="plantViewName">Plant Name</h2>
                     </div>
                     <PlantInfo className="plantViewInfo" />
                     <PlantHistory className="plantViewHistory" />
+                </div>
+                <div className="plantViewNavLinkDiv">
+                    <Link to="/"><p className="plantViewNavLink">Back to <br/> Garden Collection</p></Link>
+                    <Link to="/"><p className="plantViewNavLink">Edit Plant <br/> Info</p></Link>
+                    <Link to="/"><p className="plantViewNavLink">Edit Plant <br/> Care</p></Link>
                 </div>
             </div>
         )
