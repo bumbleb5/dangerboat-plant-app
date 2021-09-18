@@ -1,5 +1,5 @@
 import React from 'react';
-import plantService from "../../services/plantService";
+// import plantService from "../../services/plantService";
 
 import SliderComponent from '../reusableComponents/slider';
 
@@ -30,14 +30,14 @@ class PlantInfo extends React.Component {
         return (
               <div className="plantInfoCard">
                     <div>
-                        <h4 className="plantCardBotName"><em>Botanical Name</em></h4>
+                        <h4 className="plantCardBotName"><em>{this.props.plant.botName}</em></h4>
                     </div>
                     <div className="cardInfoGroup">
                         <p className="infoLabel">Light </p>
                         <div className="infoValue">
                             <div style={{display:'flex','alignItems':'center', 'justifyContent': 'space-evenly'}}>
                                 <Icon path={mdiBrightness5} title="less light" size={1} color="grey" />
-                                <SliderComponent value="5"/>
+                                <SliderComponent value={this.props.plant.lightPref}/>
                                 <Icon path={mdiBrightness7} title="more light" size={1} color="grey" />
                             </div>
                         </div>
@@ -47,7 +47,7 @@ class PlantInfo extends React.Component {
                         <div className="infoValue">
                             <div style={{display:'flex','alignItems':'center', 'justifyContent': 'space-evenly'}}>
                                 <Icon path={mdiWaterOutline} title="less water" size={1} color="grey"/>
-                                <SliderComponent value="2" />
+                                <SliderComponent value={this.props.plant.waterPref} />
                                 <Icon path={mdiWater} title="more water" size={1} color="grey" />
                             </div>
                         </div>

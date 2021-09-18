@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import plantService from './services/plantService';
 
 import GardenCollection from './components/gardenCollection/gardenCollection.js';
@@ -8,7 +8,7 @@ import PlantView from './components/plantView/plantView';
 import AddPlantForm from './components/addPlantForm/addPlantForm';
 import AddCareForm from './components/addCareForm/addCareForm';
 import NavBar from './components/navBar/navBar';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 class App extends React.Component {
