@@ -17,6 +17,15 @@ const fetchPlant = async (plantId) => {
     });
 }
 
+const postPlant = async (plant) => {
+    return await axios.post('/plants', plant).then((response) => {
+        console.log(response)
+    }).catch((error) => {
+        console.log('Error posting plant');
+        console.log(error);
+    });
+}
+
 export default {
     fetchPlants,
     fetchPlant,
