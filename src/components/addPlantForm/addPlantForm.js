@@ -1,4 +1,6 @@
 import React from 'react';
+
+import BasicInfoForm from './reusableForms/basicInfoForm';
 // import Stepper from '@material-ui/core/Stepper';
 // import Step from '@material-ui/core/Step';
 // import StepLabel from '@material-ui/core/StepLabel';
@@ -10,6 +12,9 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
 
 import './addPlantForm.css';
 
@@ -109,64 +114,82 @@ class AddPlantForm extends React.Component {
         console.log(e.target.value);
     }
 
+    formToRender = (stepIndex) => {
+        switch (stepIndex) {
+            case 0:
+                return <BasicInfoForm/>;
+                break;
+        }
+    }
+
     render() {
         return (
-            <Box sx={{ width: '100%' }}>
-                <Stepper activeStep={this.state.activeStep}>
-                    {steps.map((label, index) => {
-                        const stepProps = {};
-                        const labelProps = {};
-                        if (this.isStepOptional(index)) {
-                            labelProps.optional = (
-                                <Typography variant="caption">Optional</Typography>
-                            );
-                        }
-                        if (this.isStepSkipped(index)) {
-                            stepProps.completed = false;
-                        }
-                        return (
-                            <Step key={label} {...stepProps}>
-                                <StepLabel {...labelProps}>{label}</StepLabel>
-                            </Step>
-                        );
-                    })}
-                </Stepper>
-                {this.state.activeStep === steps.length ? (
-                    <React.Fragment>
-                        <Typography sx={{ mt: 2, mb: 1 }}>
-                            All steps completed - you&apos;re finished
-                        </Typography>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                            <Box sx={{ flex: '1 1 auto' }} />
-                            <Button onClick={this.handleReset}>Reset</Button>
-                        </Box>
-                    </React.Fragment>
-                ) : (
-                    <React.Fragment>
-                        <Typography sx={{ mt: 2, mb: 1 }}>Step {this.state.activeStep + 1}</Typography>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                            <Button
-                                color="inherit"
-                                disabled={this.state.activeStep === 0}
-                                onClick={this.handleBack}
-                                sx={{ mr: 1 }}
-                            >
-                                Back
-                            </Button>
-                            <Box sx={{ flex: '1 1 auto' }} />
-                            {this.isStepOptional(this.state.activeStep) && (
-                                <Button color="inherit" onClick={this.handleSkip} sx={{ mr: 1 }}>
-                                    Skip
-                                </Button>
+            <div>
+                <p className="addPlantTitle" style={{fontSize: '35px', color: '#5B4C6B', fontWeight: 'bolder'}}>Add Plant</p>
+                <Card sx={{ width: '80%', margin: '15px auto' }}>
+                    <CardContent>
+                        <Box sx={{ width: '100%' }}>
+                            <Stepper activeStep={this.state.activeStep}>
+                                {steps.map((label, index) => {
+                                    const stepProps = {};
+                                    const labelProps = {};
+                                    if (this.isStepOptional(index)) {
+                                        labelProps.optional = (
+                                            <Typography variant="caption">Optional</Typography>
+                                        );
+                                    }
+                                    if (this.isStepSkipped(index)) {
+                                        stepProps.completed = false;
+                                    }
+                                    return (
+                                        <Step key={label} {...stepProps}>
+                                            <StepLabel {...labelProps}>{label}</StepLabel>
+                                        </Step>
+                                    );
+                                })}
+                            </Stepper>
+                            {this.state.activeStep === steps.length ? (
+                                <React.Fragment>
+                                    <Typography sx={{ mt: 2, mb: 1 }}>
+                                        All steps completed - you&apos;re finished
+                                    </Typography>
+                                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                                        <Box sx={{ flex: '1 1 auto' }} />
+                                        <Button onClick={this.handleReset}>Reset</Button>
+                                    </Box>
+                                </React.Fragment>
+                            ) : (
+                                <React.Fragment>
+                                    <Typography sx={{ mt: 2, mb: 1 }}>Step {this.state.activeStep + 1}</Typography>
+                                    <Box>
+                                        {this.formToRender(this.state.activeStep)}
+                                    </Box>
+                                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                                        <Button
+                                            color="inherit"
+                                            disabled={this.state.activeStep === 0}
+                                            onClick={this.handleBack}
+                                            sx={{ mr: 1 }}
+                                        >
+                                            Back
+                                        </Button>
+                                        <Box sx={{ flex: '1 1 auto' }} />
+                                        {this.isStepOptional(this.state.activeStep) && (
+                                            <Button color="inherit" onClick={this.handleSkip} sx={{ mr: 1 }}>
+                                                Skip
+                                            </Button>
+                                        )}
+                                        <Button onClick={this.handleNext}>
+                                            {this.state.activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                        </Button>
+                                    </Box>
+                                </React.Fragment>
                             )}
-
-                            <Button onClick={this.handleNext}>
-                                {this.state.activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                            </Button>
                         </Box>
-                    </React.Fragment>
-                )}
-            </Box>
+                    </CardContent>
+                </Card>
+            </div>
+
         );
     }
 }
