@@ -1,6 +1,6 @@
 import React from 'react';
-// import {makeStyles} from '@material-ui/core/styles';
-import Slider from '@material-ui/core/Slider';
+// import {makeStyles} from '@mui/material/styles';
+import Slider from '@mui/material/Slider';
 // import { render } from 'react-dom';
 
 // I dont even know why i did this

@@ -1,7 +1,12 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import './basicInfoForm.css';
-// import DatePicker from '@material-ui/lab/lab/DatePicker';
+import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DateAdapter from '@mui/lab/AdapterMoment';
+// import MomentUtils from "@date-io/moment";
+import moment from "moment";
 
 export default class BasicInfoForm extends React.Component {
     constructor(props) {
@@ -29,7 +34,9 @@ export default class BasicInfoForm extends React.Component {
                 <TextField id="commonName" className="formField" label="Common Name" value={this.state.commonName} variant="standard" onChange={this.handleInputChange} />
                 <TextField id="botName" className="formField" label="Botanical Name" value={this.state.botName} variant="standard" onChange={this.handleInputChange} />
                 <TextField id="nickname" className="formField" label="Nickname (optional)" value={this.state.nickname} variant="standard" onChange={this.handleInputChange} />
-                {/*<DatePicker id="acqDate" label="Acquisition Date" value={this.plantObj.acqDate} onChange={this.handleDateChange}/>*/}
+                <LocalizationProvider dateAdapter={DateAdapter}>
+                    <DatePicker id="acqDate" label="Acquisition Date" value={this.state.acqDate} onChange={this.handleDateChange}/>
+                </LocalizationProvider>
             </div>
         )
     }
