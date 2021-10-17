@@ -8,16 +8,26 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
+import TextField from '@mui/material/TextField';
+
+import BasicInfoForm from './reusableForms/basicInfoForm';
 
 const steps = ['Basic info', 'More details', 'Add care'];
+
+const labels = [
+    ['Common Name', 'Botanical Name', 'Nickname', 'Acquisition Date'],
+    ['Light Preference', 'Water Preference', 'Fertilizer Preference', 'Location'],
+    ['Repot', 'Water', 'Treat'],
+];
 
 class AddPlantForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // TODO: Change variables
+            // Basic required info
             commonName: null,
             botName: null,
+            nickname: null,
             acqDate: null,
             lightPref: null,
             waterPref: null,
@@ -108,7 +118,7 @@ class AddPlantForm extends React.Component {
 
     render() {
         return (
-            <Card sx={{ width: '80%', margin: '20px auto' }}>
+            <Card sx={{ width: '75%', margin: '40px auto' }}>
                 <CardContent>
                     <Box sx={{ width: '100%' }}>
                         <Stepper activeStep={this.state.activeStep}>
@@ -142,7 +152,11 @@ class AddPlantForm extends React.Component {
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                <Typography sx={{ mt: 2, mb: 1 }}>Step {this.state.activeStep + 1}</Typography>
+                                <Box>
+                                    <Typography sx={{ mt: 2, mb: 1 }}>Step {this.state.activeStep + 1}</Typography>
+                                    <BasicInfoForm />
+                                    {/* <TextField id="standard-basic" label="Standard" variant="standard" /> */}
+                                </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     <Button
                                         color="inherit"
