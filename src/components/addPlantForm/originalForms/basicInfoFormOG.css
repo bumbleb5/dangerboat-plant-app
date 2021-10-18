@@ -1,0 +1,9 @@
+.basicInfoForm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+/*.basicInfoForm .formField {*/
+/*    */
+/*}*/

@@ -1,0 +1,19 @@
+.moreDetailsForm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    /*margin: 0 auto;*/
+}
+
+/*#moreDetailsGridRoot {*/
+/*    margin-left: 0;*/
+/*}*/
+
+.moreDetailsForm .gridItem {
+    margin: 0 auto !important;
+
+}
+
+#moreDetailsGridRoot {
+    margin: 0 0 !important;
+}

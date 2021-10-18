@@ -60,17 +60,17 @@ export default class BasicInfoForm extends React.Component {
         return (
             <div className="basicInfoForm">
                 <LocalizationProvider dateAdapter={DateAdapter}>
-                    <div className="formContainer">
-                        <div >
+                    <Grid container sx={{ m: 0 }} spacing={10} direction="row" columns={8} width="85%" margin="0" alignItems="center">
+                        <Grid item sm={4} zeroMinWidth>
                             <TextField fullWidth id="commonName" className="formField" label="Common Name" value={this.state.commonName} variant="standard" onChange={this.handleInputChange} />
-                        </div>
-                        <div >
+                        </Grid>
+                        <Grid item sm={4} zeroMinWidth>
                             <TextField fullWidth id="botName" className="formField" label="Botanical Name" value={this.state.botName} variant="standard" onChange={this.handleInputChange} />
-                        </div>
-                        <div >
+                        </Grid>
+                        <Grid item sm={4} zeroMinWidth>
                             <TextField fullWidth id="nickname" className="formField" label="Nickname (optional)" value={this.state.nickname} variant="standard" onChange={this.handleInputChange} />
-                        </div>
-                        <div >
+                        </Grid>
+                        <Grid item sm={4} zeroMinWidth>
                             <div style={{ display: 'flex' }}>
                                 {/* <Checkbox checked={this.state.useDate}{...label} /> */}
                                 <DatePicker disabled={!this.state.useDate} fullWidth id="acqDate" label="Acquisition Date" value={this.state.acqDate} onChange={this.handleDateChange} renderInput={(params) => <TextField fullWidth value={this.state.acqDate} {...params} />}/>
@@ -78,8 +78,8 @@ export default class BasicInfoForm extends React.Component {
                                     <Checkbox checked={this.state.useDate} onChange={this.toggleUseDate}/>
                                 </Tooltip>
                             </div>
-                        </div>
-                    </div>
+                        </Grid>
+                    </Grid>
                 </LocalizationProvider>
             </div>
         )

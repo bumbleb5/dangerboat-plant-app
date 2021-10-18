@@ -11,6 +11,8 @@ import Card from "@mui/material/Card";
 import TextField from '@mui/material/TextField';
 
 import BasicInfoForm from './reusableForms/basicInfoForm';
+import MoreDeetsForm from './reusableForms/moreDeetsForm';
+import CareForm from "./reusableForms/careForm";
 
 const steps = ['Basic info', 'More details', 'Add care'];
 
@@ -19,6 +21,8 @@ const labels = [
     ['Light Preference', 'Water Preference', 'Fertilizer Preference', 'Location'],
     ['Repot', 'Water', 'Treat'],
 ];
+
+const forms = [<BasicInfoForm />, <MoreDeetsForm/>, <CareForm />];
 
 class AddPlantForm extends React.Component {
     constructor(props) {
@@ -152,9 +156,10 @@ class AddPlantForm extends React.Component {
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                <Box>
-                                    <Typography sx={{ mt: 2, mb: 1 }}>Step {this.state.activeStep + 1}</Typography>
-                                    <BasicInfoForm />
+                                <Box id="addPlantFormRoot" sx={{ m: 0 }}>
+                                    {/*<Typography sx={{ mt: 2, mb: 1 }}>Step {this.state.activeStep + 1}</Typography>*/}
+                                    {/* <BasicInfoForm /> */}
+                                    {forms[this.state.activeStep]}
                                     {/* <TextField id="standard-basic" label="Standard" variant="standard" /> */}
                                 </Box>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>

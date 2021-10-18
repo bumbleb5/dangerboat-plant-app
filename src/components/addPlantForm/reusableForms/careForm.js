@@ -13,18 +13,20 @@ import Tooltip from '@mui/material/Tooltip';
 
 import moment from "moment";
 
-import './basicInfoForm.css';
+import './careForm.css';
 
 // const label = { inputProps: { 'aria-label': 'useDate'} };
 
-export default class BasicInfoForm extends React.Component {
+export default class CareForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            commonName: '',
-            nickname: '',
-            botName: null,
-            acqDate: moment().format(),
+            water: null,
+            fertilize: null,
+            treat: null,
+            repot: null,
+            customEvent: null,
+            date: null,
             useDate: true,
         }
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -58,17 +60,20 @@ export default class BasicInfoForm extends React.Component {
 
     render() {
         return (
-            <div className="basicInfoForm">
+            <div className="careForm">
                 <LocalizationProvider dateAdapter={DateAdapter}>
                     <div className="formContainer">
                         <div >
-                            <TextField fullWidth id="commonName" className="formField" label="Common Name" value={this.state.commonName} variant="standard" onChange={this.handleInputChange} />
+                            <TextField fullWidth id="water" className="formField" label="Water" value={this.state.water} variant="standard" onChange={this.handleInputChange} />
                         </div>
                         <div >
-                            <TextField fullWidth id="botName" className="formField" label="Botanical Name" value={this.state.botName} variant="standard" onChange={this.handleInputChange} />
+                            <TextField fullWidth id="repot" className="formField" label="Repot" value={this.state.repot} variant="standard" onChange={this.handleInputChange} />
                         </div>
                         <div >
-                            <TextField fullWidth id="nickname" className="formField" label="Nickname (optional)" value={this.state.nickname} variant="standard" onChange={this.handleInputChange} />
+                            <TextField fullWidth id="fertilize" className="formField" label="Fertilize" value={this.state.fertilize} variant="standard" onChange={this.handleInputChange} />
+                        </div>
+                        <div >
+                            <TextField fullWidth id="treat" className="formField" label="Treatment" value={this.state.treat} variant="standard" onChange={this.handleInputChange} />
                         </div>
                         <div >
                             <div style={{ display: 'flex' }}>
