@@ -8,6 +8,8 @@ import DateAdapter from '@mui/lab/AdapterMoment';
 import Grid from '@mui/material/Grid';
 import Checkbox from '@mui/material/Checkbox';
 import Tooltip from '@mui/material/Tooltip';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 // import FormControl from '@mui/material/FormControl';
 // import MomentUtils from "@date-io/moment";
 
@@ -23,7 +25,7 @@ export default class BasicInfoForm extends React.Component {
         this.state = {
             commonName: '',
             nickname: '',
-            botName: null,
+            botName: '',
             acqDate: moment().format(),
             useDate: true,
         }
@@ -62,13 +64,13 @@ export default class BasicInfoForm extends React.Component {
                 <LocalizationProvider dateAdapter={DateAdapter}>
                     <div className="formContainer">
                         <div >
-                            <TextField fullWidth id="commonName" className="formField" label="Common Name" value={this.state.commonName} variant="standard" onChange={this.handleInputChange} />
+                            <TextField fullWidth id="commonName" className="formField" label="Common Name" value={this.state.commonName} variant="standard" onChange={(e) => this.props.handleChange(e.target.id, e.target.value)} />
                         </div>
                         <div >
-                            <TextField fullWidth id="botName" className="formField" label="Botanical Name" value={this.state.botName} variant="standard" onChange={this.handleInputChange} />
+                            <TextField fullWidth id="botName" className="formField" label="Botanical Name" value={this.state.botName} variant="standard" onChange={(e) => this.props.handleChange(e.target.id, e.target.value)} />
                         </div>
                         <div >
-                            <TextField fullWidth id="nickname" className="formField" label="Nickname (optional)" value={this.state.nickname} variant="standard" onChange={this.handleInputChange} />
+                            <TextField fullWidth id="nickname" className="formField" label="Nickname (optional)" value={this.state.nickname} variant="standard" onChange={(e) => this.props.handleChange(e.target.id, e.target.value)} />
                         </div>
                         <div >
                             <div style={{ display: 'flex' }}>
@@ -80,6 +82,26 @@ export default class BasicInfoForm extends React.Component {
                             </div>
                         </div>
                     </div>
+                    {/* <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                        <Button
+                            color="inherit"
+                            disabled={this.state.activeStep === 0}
+                            onClick={this.handleBack}
+                            sx={{ mr: 1 }}
+                        >
+                            Back
+                        </Button>
+                        <Box sx={{ flex: '1 1 auto' }} />
+                        {this.isStepOptional(this.state.activeStep) && (
+                            <Button color="inherit" onClick={this.handleSkip} sx={{ mr: 1 }}>
+                                Skip
+                            </Button>
+                        )}
+
+                        <Button onClick={this.handleNext}>
+                            {this.state.activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                        </Button>
+                    </Box> */}
                 </LocalizationProvider>
             </div>
         )

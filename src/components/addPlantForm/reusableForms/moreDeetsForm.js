@@ -31,9 +31,9 @@ export default class MoreDetailsForm extends React.Component {
         this.state = {
             lightPref: 0,
             waterPref: 0,
-            n: null,
-            p: null,
-            k: null,
+            n: '',
+            p: '',
+            k: '',
             location: '',
             npkReq: false,
         }
@@ -104,14 +104,14 @@ export default class MoreDetailsForm extends React.Component {
                     <div>
                         <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center">
                             <Icon path={mdiWaterOutline} title="less water" size={1} color="grey"/>
-                            <Slider aria-label="Water" name="waterPref" defaultValue={0} onChange={this.handleSliderChange} min={0} max={10}/>
+                            <Slider aria-label="Water" name="waterPref" defaultValue={0} onChangeCommitted={this.handleSliderChange} min={0} max={10}/>
                             <Icon path={mdiWater} title="more water" size={1} color="grey"/>
                         </Stack>
                     </div>
                     <div >
                         <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center">
                             <Icon path={mdiBrightness5} title="less light" size={1} color="grey"/>
-                            <Slider aria-label="Light" name="lightPref" defaultValue={0} onChange={this.handleSliderChange} min={0} max={10}/>
+                            <Slider aria-label="Light" name="lightPref" defaultValue={0} onChangeCommitted={this.handleSliderChange} min={0} max={10}/>
                             <Icon path={mdiBrightness7} title="more light" size={1} color="grey"/>
                         </Stack>
                     </div>
