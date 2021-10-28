@@ -27,10 +27,10 @@ import {mdiWaterOutline} from '@mdi/js';
 import {mdiBrightness5} from '@mdi/js';
 import {mdiBrightness7} from '@mdi/js';
 
-// import BasicInfoForm from './reusableForms/basicInfoForm';
-// import MoreDeetsForm from './reusableForms/moreDeetsForm';
-// import CareForm from "./reusableForms/careForm";
-// import MoreDetailsForm from "./reusableForms/moreDeetsForm";
+import BasicInfoForm from './reusableForms/basicInfoForm';
+import MoreDeetsForm from './reusableForms/moreDeetsForm';
+import CareForm from "./reusableForms/careForm";
+import MoreDetailsForm from "./reusableForms/moreDeetsForm";
 
 const steps = ['Basic info', 'More details', 'Add care'];
 
@@ -55,7 +55,7 @@ class AddPlantForm extends React.Component {
             nickname: '',
             botName: '',
             acqDate: moment().format(),
-            useDate: true,
+            useAcqDate: true,
             // More detail form
             lightPref: 0,
             waterPref: 0,
@@ -111,6 +111,42 @@ class AddPlantForm extends React.Component {
         });
         // setActiveStep((prevActiveStep) => prevActiveStep + 1);
         // setSkipped(newSkipped);
+        if (this.state.activeStep === 2) {
+            console.log('Finished, here\'s the result!');
+            console.log(this.state);
+            this.handleSubmit();
+        }
+    }
+
+    handleSubmit() {
+        const formattedNPK = this.formatNPK();
+
+        const basicInfo = {
+            commonName: this.state.commonName,
+            nickname: this.state.nickname,
+            botName: this.state.botName,
+            acqDate: this.state.useAcqDate ? this.state.acqDate : null,
+        };
+
+        const moreDetails = {
+            lightPref: this.state.lightPref === 0 ? null : this.state.lightPref,
+            waterPref: this.state.waterPref === 0 ? null : this.state.waterPref,
+            npkPref: this.state.npkReq ? formattedNPK : null,
+            location: this.state.location === '' ? null : this.state.location,
+        };
+
+        const careDetails = {
+            waterDate: this.state.waterEvent ? this.state.waterDate : null,
+            fertilizeDate: this.state.fertilizeEvent ? this.state.fertilizeDate : null,
+            treatEvent: this.state.treatEvent ? this.state.treatDate : null,
+            repotEvent: this.state.repotEvent ? this.state.repotDate : null,
+        };
+
+        console.log('Submitting!');
+
+        console.log(basicInfo);
+        console.log(moreDetails);
+        console.log(careDetails);
     }
 
     handleBack = () => {
@@ -148,10 +184,10 @@ class AddPlantForm extends React.Component {
         // setActiveStep(0);
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        console.log('submit');
-    }
+    // handleSubmit(e) {
+    //     e.preventDefault();
+    //     console.log('submit');
+    // }
 
     handleChange(e) {
         console.log(e.target.id);
@@ -163,15 +199,96 @@ class AddPlantForm extends React.Component {
     handleDateChange = (e) => {
         let date = moment(e._d).format();
         console.log(date);
+        console.log(e);
+        // this.setState({ acqDate: date });
+    }
+
+    handleAcqDateChange = (e) => {
+        console.log('handling acq date change');
+        let date = moment(e._d).format();
+        console.log(date);
         this.setState({ acqDate: date });
     }
 
-    toggleUseDate = () => {
+    toggleUseDate = (e) => {
+        // console.log(e);
+        let value = e.target.value;
         this.setState({
-            // useDate true => toggle to false, clear date
-            useDate: !this.state.useDate,
-            acqDate: this.state.useDate ? null : moment().format(),
+            [value]: !this.state[value]
         });
+    }
+
+    toggleUseEventDate = (e) => {
+        let eventType = e.target.id;
+        this.setState({
+            [eventType]: !this.state[eventType]
+        });
+    }
+
+    toggleNPKRequired = () => {
+        if (this.state.n !== null || this.state.p !== null || this.state.k !== null) {
+            this.setState({
+                npkReq: true,
+            });
+        }
+    }
+
+    handleNPKChange = e => {
+        this.setState({
+            [e.target.id]: e.target.value
+        });
+        this.toggleNPKRequired();
+    }
+
+    formatNPK() {
+        const npk = `${this.state.n}-${this.state.p}-${this.state.k}`;
+        console.log(npk);
+        return npk;
+    }
+
+    handleSliderChange = (e) => {
+        console.log(e);
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    handleWaterPrefChange = (e) => {
+        console.log(e);
+        this.setState({
+            waterPref: e.target.value
+        });
+    }
+
+    handleLightPrefChange = (e) => {
+        console.log(e);
+        this.setState({
+            lightPref: e.target.value
+        });
+    }
+
+    handleWaterChange = (e) => {
+        // console.log(e);
+        let date = moment(e._d).format();
+        this.setState({ waterDate: date });
+    }
+
+    handleRepotChange = (e) => {
+        // console.log(e);
+        let date = moment(e._d).format();
+        this.setState({ repotDate: date });
+    }
+
+    handleTreatChange = (e) => {
+        // console.log(e);
+        let date = moment(e._d).format();
+        this.setState({ treatDate: date });
+    }
+
+    handleFertilizeChange = (e) => {
+        // console.log(e);
+        let date = moment(e._d).format();
+        this.setState({ fertilizeDate: date });
     }
 
     handleNextStep(stepObj) {
@@ -217,119 +334,6 @@ class AddPlantForm extends React.Component {
         console.log({ [field]: value });
     }
 
-    basicInfoForm = (
-        <div className="basicInfoForm">
-                <LocalizationProvider dateAdapter={DateAdapter}>
-                    <div className="formContainer">
-                        <div >
-                            <TextField fullWidth id="commonName" className="formField" label="Common Name" value={this.state.commonName} variant="standard" onChange={this.handleChange} />
-                        </div>
-                        <div >
-                            <TextField fullWidth id="botName" className="formField" label="Botanical Name" value={this.state.botName} variant="standard" onChange={this.handleChange} />
-                        </div>
-                        <div >
-                            <TextField fullWidth id="nickname" className="formField" label="Nickname (optional)" value={this.state.nickname} variant="standard" onChange={this.handleChange} />
-                        </div>
-                        <div >
-                            <div style={{ display: 'flex' }}>
-                                {/* <Checkbox checked={this.state.useDate}{...label} /> */}
-                                <DatePicker disabled={!this.state.useDate} fullWidth id="acqDate" label="Acquisition Date" value={this.state.acqDate} onChange={this.handleDateChange} renderInput={(params) => <TextField fullWidth value={this.state.acqDate} {...params} />}/>
-                                <Tooltip title="Uncheck to disable date">
-                                    <Checkbox checked={this.state.useDate} onChange={this.toggleUseDate}/>
-                                </Tooltip>
-                            </div>
-                        </div>
-                    </div>
-                </LocalizationProvider>
-            </div>
-    )
-
-    moreDetailsForm = (
-        <div className="moreDetailsForm">
-            <div className="formContainer">
-                <div>
-                    <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center">
-                        <Icon path={mdiWaterOutline} title="less water" size={1} color="grey"/>
-                        <Slider aria-label="Water" name="waterPref" defaultValue={0} onChangeCommitted={this.handleSliderChange} min={0} max={10}/>
-                        <Icon path={mdiWater} title="more water" size={1} color="grey"/>
-                    </Stack>
-                </div>
-                <div >
-                    <Stack spacing={2} direction="row" sx={{mb: 1}} alignItems="center">
-                        <Icon path={mdiBrightness5} title="less light" size={1} color="grey"/>
-                        <Slider aria-label="Light" name="lightPref" defaultValue={0} onChangeCommitted={this.handleSliderChange} min={0} max={10}/>
-                        <Icon path={mdiBrightness7} title="more light" size={1} color="grey"/>
-                    </Stack>
-                </div>
-                <div >
-                    <Stack spacing={4} direction="row" alignItems="center" sx={{ padding: '0 50px 0 50px' }}>
-                        <TextField id="n" className="formField" value={this.state.n} variant="standard"
-                                   onChange={this.handleNPKChange} label="N"/>
-                        <TextField id="p" className="formField" value={this.state.p} variant="standard"
-                                   onChange={this.handleNPKChange} label="P"/>
-                        <TextField id="k" className="formField" value={this.state.k} variant="standard"
-                                   onChange={this.handleNPKChange} label="K"/>
-                    </Stack>
-                </div>
-                <div >
-                    <TextField fullWidth id="location" className="formField" label="Location" margin="none"
-                               value={this.state.location} variant="standard" onChange={this.handleInputChange}/>
-                </div>
-            </div>
-        </div>
-    )
-
-    careForm = (
-        <div className="careForm">
-            <LocalizationProvider dateAdapter={DateAdapter}>
-                <div className="formContainer">
-                    <div style={{ display: 'flex' }}>
-                        {/* <Checkbox checked={this.state.useDate}{...label} /> */}
-                        <DatePicker disabled={!this.state.waterEvent} fullWidth id="waterDate" label="Watered Plant" value={this.state.waterDate} onChange={this.handleWaterChange} renderInput={(params) => <TextField fullWidth value={this.state.waterDate} {...params} />}/>
-                        <Tooltip title={this.state.waterEvent ? "Uncheck to remove water event" : "Check to add water event"}>
-                            <Checkbox id="waterEvent" checked={this.state.waterEvent} onChange={this.toggleUseDate}/>
-                        </Tooltip>
-                    </div>
-                    <div style={{ display: 'flex' }}>
-                        {/* <Checkbox checked={this.state.useDate}{...label} /> */}
-                        <DatePicker disabled={!this.state.repotEvent} fullWidth id="repotDate" label="Repotted Plant" value={this.state.repotDate} onChange={this.handleRepotChange} renderInput={(params) => <TextField fullWidth value={this.state.repotDate} {...params} />}/>
-                        <Tooltip title={this.state.repotEvent ? "Uncheck to remove repot event" : "Check to add repot event"}>
-                            <Checkbox id="repotEvent" checked={this.state.repotEvent} onChange={this.toggleUseDate}/>
-                        </Tooltip>
-                    </div>
-                    <div style={{ display: 'flex' }}>
-                        {/* <Checkbox checked={this.state.useDate}{...label} /> */}
-                        <DatePicker disabled={!this.state.fertilizeEvent} fullWidth id="fertilizeDate" label="Fertilized Plant" value={this.state.fertilizeDate} onChange={this.handleFertilizeChange} renderInput={(params) => <TextField fullWidth value={this.state.fertilizeDate} {...params} />}/>
-                        <Tooltip title={this.state.fertilizeEvent ? "Uncheck to remove fertilize event" : "Check to add fertilize event"}>
-                            <Checkbox id="fertilizeEvent" checked={this.state.fertilizeEvent} onChange={this.toggleUseDate}/>
-                        </Tooltip>
-                    </div>
-                    {/* <div >
-                        <TextField fullWidth id="water" className="formField" label="Water" value={this.state.water} variant="standard" onChange={this.handleInputChange} />
-                    </div>
-                    <div >
-                        <TextField fullWidth id="repot" className="formField" label="Repot" value={this.state.repot} variant="standard" onChange={this.handleInputChange} />
-                    </div>
-                    <div >
-                        <TextField fullWidth id="fertilize" className="formField" label="Fertilize" value={this.state.fertilize} variant="standard" onChange={this.handleInputChange} />
-                    </div>
-                    <div >
-                        <TextField fullWidth id="treat" className="formField" label="Treatment" value={this.state.treat} variant="standard" onChange={this.handleInputChange} />
-                    </div> */}
-                    <div style={{ display: 'flex' }}>
-                        {/* <Checkbox checked={this.state.useDate}{...label} /> */}
-                        <DatePicker disabled={!this.state.treatEvent} fullWidth id="acqDate" label="Treated Plant" value={this.state.treatDate} onChange={this.handleTreatChange} renderInput={(params) => <TextField fullWidth value={this.state.treatDate} {...params} />}/>
-                        <Tooltip title={this.state.treatEvent ? "Uncheck to remove treatment event" : "Check to add treatment event"}>
-                            <Checkbox id="treatEvent" checked={this.state.treatEvent} onChange={this.toggleUseDate}/>
-                        </Tooltip>
-                    </div>
-                </div>
-            </LocalizationProvider>
-        </div>
-    )
-
-    forms = [this.basicInfoForm, this.moreDetailsForm, this.careForm]
-
     render() {
         return (
             <Card sx={{ width: '75%', margin: '40px auto' }}>
@@ -369,10 +373,14 @@ class AddPlantForm extends React.Component {
                                 <Box id="addPlantFormRoot" sx={{ m: 0 }}>
                                     {/*<Typography sx={{ mt: 2, mb: 1 }}>Step {this.state.activeStep + 1}</Typography>*/}
                                     {/* <BasicInfoForm /> */}
-                                    {this.forms[this.state.activeStep]}
+                                    
+                                    <BasicInfoForm currentStep={this.state.activeStep} handleInputChange={this.handleChange} acqDate={this.state.acqDate} handleDateChange={this.handleAcqDateChange} toggleUseDate={this.toggleUseDate} useAcqDate={this.state.useAcqDate} />
+                                    <MoreDeetsForm currentStep={this.state.activeStep} handleInputChange={this.handleChange} handleDateChange={this.handleDateChange} toggleUseDate={this.toggleUseDate} toggleNPKRequired={this.toggleNPKRequired} handleNPKChange={this.handleNPKChange} handleSliderChange={this.handleSliderChange} handleWaterPrefChange={this.handleWaterPrefChange} handleLightPrefChange={this.handleLightPrefChange} />
+                                    <CareForm currentStep={this.state.activeStep} handleInputChange={this.handleChange} handleDateChange={this.handleDateChange} handleWaterChange={this.handleWaterChange} handleRepotChange={this.handleRepotChange} handleTreatChange={this.handleTreatChange} handleFertilizeChange={this.handleFertilizeChange} toggleUseDate={this.toggleUseEventDate} waterEvent={this.state.waterEvent} waterDate={this.state.waterDate} repotEvent={this.state.repotEvent} repotDate={this.state.repotDate} fertilizeEvent={this.state.fertilizeEvent} fertilizeDate={this.state.fertilizeDate} treatEvent={this.state.treatEvent} treatDate={this.state.treatDate} />
+
                                     {/* <TextField id="standard-basic" label="Standard" variant="standard" /> */}
                                 </Box>
-                                {/* <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     <Button
                                         color="inherit"
                                         disabled={this.state.activeStep === 0}
@@ -391,7 +399,7 @@ class AddPlantForm extends React.Component {
                                     <Button onClick={this.handleNext}>
                                         {this.state.activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                                     </Button>
-                                </Box> */}
+                                </Box>
                             </React.Fragment>
                         )}
                     </Box>

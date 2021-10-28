@@ -18,30 +18,30 @@ import './careForm.css';
 // const label = { inputProps: { 'aria-label': 'useDate'} };
 
 export default class CareForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            waterEvent: false,
-            waterDate: moment().format(),
-            fertilizeEvent: false,
-            fertilizeDate: moment().format(),
-            treatEvent: false,
-            treatDate: moment().format(),
-            repotEvent: false,
-            repotDate: moment().format(),
-            // customEvent: true,
-            // customEventDate: moment().format(),
-            // date: moment().format(),
-            // useDate: true,
-        }
-        // this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleDateChange = this.handleDateChange.bind(this);
-        this.handleFertilizeChange = this.handleFertilizeChange.bind(this);
-        this.handleWaterChange = this.handleWaterChange.bind(this);
-        this.handleRepotChange = this.handleRepotChange.bind(this);
-        this.handleFertilizeChange = this.handleFertilizeChange.bind(this);
-        // this.toggleUseDate = this.toggleUseDate.bind(this);
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         waterEvent: false,
+    //         waterDate: moment().format(),
+    //         fertilizeEvent: false,
+    //         fertilizeDate: moment().format(),
+    //         treatEvent: false,
+    //         treatDate: moment().format(),
+    //         repotEvent: false,
+    //         repotDate: moment().format(),
+    //         // customEvent: true,
+    //         // customEventDate: moment().format(),
+    //         // date: moment().format(),
+    //         // useDate: true,
+    //     }
+    //     // this.handleInputChange = this.handleInputChange.bind(this);
+    //     this.handleDateChange = this.handleDateChange.bind(this);
+    //     this.handleFertilizeChange = this.handleFertilizeChange.bind(this);
+    //     this.handleWaterChange = this.handleWaterChange.bind(this);
+    //     this.handleRepotChange = this.handleRepotChange.bind(this);
+    //     this.handleFertilizeChange = this.handleFertilizeChange.bind(this);
+    //     // this.toggleUseDate = this.toggleUseDate.bind(this);
+    // }
 
     // handleInputChange = (e) => {
     //     console.log(e.target.id);
@@ -51,74 +51,78 @@ export default class CareForm extends React.Component {
     //     this.setState({ [field]: value });
     // }
 
-    handleDateChange = (e) => {
-        // console.log(e);
-        // console.log(e._d);
-        console.log(e);
-        let date = moment(e._d).format();
-        // let field = 
-        console.log(date);
-        this.setState({ acqDate: date });
-    }
+    // handleDateChange = (e) => {
+    //     // console.log(e);
+    //     // console.log(e._d);
+    //     console.log(e);
+    //     let date = moment(e._d).format();
+    //     // let field = 
+    //     console.log(date);
+    //     this.setState({ acqDate: date });
+    // }
 
-    handleWaterChange = (e) => {
-        // console.log(e);
-        let date = moment(e._d).format();
-        this.setState({ waterDate: date });
-    }
+    // handleWaterChange = (e) => {
+    //     // console.log(e);
+    //     let date = moment(e._d).format();
+    //     this.setState({ waterDate: date });
+    // }
 
-    handleRepotChange = (e) => {
-        // console.log(e);
-        let date = moment(e._d).format();
-        this.setState({ repotDate: date });
-    }
+    // handleRepotChange = (e) => {
+    //     // console.log(e);
+    //     let date = moment(e._d).format();
+    //     this.setState({ repotDate: date });
+    // }
 
-    handleTreatChange = (e) => {
-        // console.log(e);
-        let date = moment(e._d).format();
-        this.setState({ treatDate: date });
-    }
+    // handleTreatChange = (e) => {
+    //     // console.log(e);
+    //     let date = moment(e._d).format();
+    //     this.setState({ treatDate: date });
+    // }
 
-    handleFertilizeChange = (e) => {
-        // console.log(e);
-        let date = moment(e._d).format();
-        this.setState({ fertilizeDate: date });
-    }
+    // handleFertilizeChange = (e) => {
+    //     // console.log(e);
+    //     let date = moment(e._d).format();
+    //     this.setState({ fertilizeDate: date });
+    // }
 
-    toggleUseDate = (e) => {
-        console.log(e);
-        let eventType = e.target.id;
-        this.setState({
-            // useDate true => toggle to false, clear date
-            [eventType]: !this.state[eventType],
-            // acqDate: this.state.useDate ? null : moment().format(),
-        });
-    }
+    // toggleUseDate = (e) => {
+    //     console.log(e);
+    //     let eventType = e.target.id;
+    //     this.setState({
+    //         // useDate true => toggle to false, clear date
+    //         [eventType]: !this.state[eventType],
+    //         // acqDate: this.state.useDate ? null : moment().format(),
+    //     });
+    // }
 
     render() {
+        if (this.props.currentStep !== 2) {
+            return null;
+        }
+
         return (
             <div className="careForm">
                 <LocalizationProvider dateAdapter={DateAdapter}>
                     <div className="formContainer">
                         <div style={{ display: 'flex' }}>
                             {/* <Checkbox checked={this.state.useDate}{...label} /> */}
-                            <DatePicker disabled={!this.state.waterEvent} fullWidth id="waterDate" label="Watered Plant" value={this.state.waterDate} onChange={this.handleWaterChange} renderInput={(params) => <TextField fullWidth value={this.state.waterDate} {...params} />}/>
-                            <Tooltip title={this.state.waterEvent ? "Uncheck to remove water event" : "Check to add water event"}>
-                                <Checkbox id="waterEvent" checked={this.state.waterEvent} onChange={this.toggleUseDate}/>
+                            <DatePicker disabled={!this.props.waterEvent} fullWidth id="waterDate" label="Watered Plant" value={this.props.waterDate} onChange={this.props.handleWaterChange} renderInput={(params) => <TextField fullWidth value={this.props.waterDate} {...params} />}/>
+                            <Tooltip title={this.props.waterEvent ? "Uncheck to remove water event" : "Check to add water event"}>
+                                <Checkbox id="waterEvent" checked={this.props.waterEvent} onChange={this.props.toggleUseDate}/>
                             </Tooltip>
                         </div>
                         <div style={{ display: 'flex' }}>
                             {/* <Checkbox checked={this.state.useDate}{...label} /> */}
-                            <DatePicker disabled={!this.state.repotEvent} fullWidth id="repotDate" label="Repotted Plant" value={this.state.repotDate} onChange={this.handleRepotChange} renderInput={(params) => <TextField fullWidth value={this.state.repotDate} {...params} />}/>
-                            <Tooltip title={this.state.repotEvent ? "Uncheck to remove repot event" : "Check to add repot event"}>
-                                <Checkbox id="repotEvent" checked={this.state.repotEvent} onChange={this.toggleUseDate}/>
+                            <DatePicker disabled={!this.props.repotEvent} fullWidth id="repotDate" label="Repotted Plant" value={this.props.repotDate} onChange={this.props.handleRepotChange} renderInput={(params) => <TextField fullWidth value={this.props.repotDate} {...params} />}/>
+                            <Tooltip title={this.props.repotEvent ? "Uncheck to remove repot event" : "Check to add repot event"}>
+                                <Checkbox id="repotEvent" checked={this.props.repotEvent} onChange={this.props.toggleUseDate}/>
                             </Tooltip>
                         </div>
                         <div style={{ display: 'flex' }}>
                             {/* <Checkbox checked={this.state.useDate}{...label} /> */}
-                            <DatePicker disabled={!this.state.fertilizeEvent} fullWidth id="fertilizeDate" label="Fertilized Plant" value={this.state.fertilizeDate} onChange={this.handleFertilizeChange} renderInput={(params) => <TextField fullWidth value={this.state.fertilizeDate} {...params} />}/>
-                            <Tooltip title={this.state.fertilizeEvent ? "Uncheck to remove fertilize event" : "Check to add fertilize event"}>
-                                <Checkbox id="fertilizeEvent" checked={this.state.fertilizeEvent} onChange={this.toggleUseDate}/>
+                            <DatePicker disabled={!this.props.fertilizeEvent} fullWidth id="fertilizeDate" label="Fertilized Plant" value={this.props.fertilizeDate} onChange={this.props.handleFertilizeChange} renderInput={(params) => <TextField fullWidth value={this.props.fertilizeDate} {...params} />}/>
+                            <Tooltip title={this.props.fertilizeEvent ? "Uncheck to remove fertilize event" : "Check to add fertilize event"}>
+                                <Checkbox id="fertilizeEvent" checked={this.props.fertilizeEvent} onChange={this.props.toggleUseDate}/>
                             </Tooltip>
                         </div>
                         {/* <div >
@@ -135,9 +139,9 @@ export default class CareForm extends React.Component {
                         </div> */}
                         <div style={{ display: 'flex' }}>
                             {/* <Checkbox checked={this.state.useDate}{...label} /> */}
-                            <DatePicker disabled={!this.state.treatEvent} fullWidth id="acqDate" label="Treated Plant" value={this.state.treatDate} onChange={this.handleTreatChange} renderInput={(params) => <TextField fullWidth value={this.state.treatDate} {...params} />}/>
-                            <Tooltip title={this.state.treatEvent ? "Uncheck to remove treatment event" : "Check to add treatment event"}>
-                                <Checkbox id="treatEvent" checked={this.state.treatEvent} onChange={this.toggleUseDate}/>
+                            <DatePicker disabled={!this.props.treatEvent} fullWidth id="acqDate" label="Treated Plant" value={this.props.treatDate} onChange={this.props.handleTreatChange} renderInput={(params) => <TextField fullWidth value={this.props.treatDate} {...params} />}/>
+                            <Tooltip title={this.props.treatEvent ? "Uncheck to remove treatment event" : "Check to add treatment event"}>
+                                <Checkbox id="treatEvent" checked={this.props.treatEvent} onChange={this.props.toggleUseDate}/>
                             </Tooltip>
                         </div>
                     </div>
