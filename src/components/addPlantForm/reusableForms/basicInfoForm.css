@@ -17,3 +17,9 @@
 /*.basicInfoForm .formField {*/
 /*    */
 /*}*/
+@media only screen and (max-width: 650px) {
+    .basicInfoForm .formContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+}

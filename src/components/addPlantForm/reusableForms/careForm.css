@@ -7,3 +7,10 @@
     margin: 20px auto;
     align-items: end;
 }
+
+@media only screen and (max-width: 650px) {
+    .careForm .formContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+}

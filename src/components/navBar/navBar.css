@@ -64,10 +64,8 @@
   .actionsDiv {
     flex-direction: column;
   }
-
   .navBar {
     height: 98px;
-
   }
   .navBarTitle {
     display: block;
