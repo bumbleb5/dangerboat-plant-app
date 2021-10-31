@@ -10,6 +10,7 @@
   top: 0;
   background-color: #5d4e6d;
   width: 100%;
+  height: 98px;
 }
 
 .navBarTitle h2 {
@@ -52,4 +53,26 @@
   color: #c1b7cc;
   margin: 0;
   padding-left: 15px;
+}
+
+.actionsDiv {
+  display: flex;
+  flex-direction: row;
+}
+
+@media only screen and (max-width: 650px) {
+  .actionsDiv {
+    flex-direction: column;
+  }
+
+  .navBar {
+    height: 98px;
+
+  }
+  .navBarTitle {
+    display: block;
+  }
+  .navBarItems h3 {
+    margin: 5px 20px;
+  }
 }

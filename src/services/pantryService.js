@@ -1,13 +1,7 @@
 import axios from 'axios';
 
 const fetchPlantsFromPantry = async () => {
-    let plants = [];
-    console.log(process.env.REACT_APP_PANTRY_URL, process.env.REACT_APP_PANTRY_ID);
-    // await axios.get(process.env.PANTRY_URL + process.env.PANTRY_ID + '/basket/Plants').then((response) => {
-    //     console.log(response);
-    //     const plantArr = JSON.parse(JSON.stringify(response));
-    //     plants = plantArr;
-    // });
+    // console.log(process.env.REACT_APP_PANTRY_URL, process.env.REACT_APP_PANTRY_ID);
 
     return await axios.get(process.env.REACT_APP_PANTRY_URL + process.env.REACT_APP_PANTRY_ID + '/basket/Plants').then((response) => {
         // console.log(response);
@@ -20,8 +14,6 @@ const fetchPlantsFromPantry = async () => {
         // console.log(arr);
         return arr;
     });
-
-    // return plants;
 };
 
 const postNewPlantToPantry = async (plant) => {
@@ -31,7 +23,6 @@ const postNewPlantToPantry = async (plant) => {
 };
 
 const fetchEventsForPlant = async (plantId) => {
-    let events = [];
 
     return await axios.get(process.env.REACT_APP_PANTRY_URL + process.env.REACT_APP_PANTRY_ID + '/basket/Events-' + plantId).then((response) => {
         console.log(response);
@@ -39,7 +30,6 @@ const fetchEventsForPlant = async (plantId) => {
         // events = eventArr;
     })
 
-    // return events;
 };
 
 const postEventForPlant = async (plantId, event) => {
