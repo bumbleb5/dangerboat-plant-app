@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "production": "plant-app-80e16",
+    "default": "plant-app-80e16"
+  },
+  "targets": {
+    "plant-app-80e16": {
+      "hosting": {
+        "plant-app-main": [
+          "plant-app-80e16"
+        ]
+      }
+    }
+  }
+}

@@ -26,6 +26,21 @@ class PlantInfo extends React.Component {
     //     });
     // }
 
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         plant: this.props.plant
+    //     }
+    // }
+    componentDidMount() {
+        console.log(this.props.plant);
+        console.log(typeof this.props.plant.npkPref);
+    }
+
+    showConditional(property) {
+        return this.props.plant.hasOwnProperty(property);
+    }
+
     render() {
         return (
               <div className="plantInfoCard">
@@ -52,18 +67,27 @@ class PlantInfo extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="cardInfoGroup">
+                  {
+                      this.showConditional('npkPref') &&
+                      <div className="cardInfoGroup">
                           <p className="infoLabel">Food</p>
-                          <p  className="infoValue">1 - 1 - 1</p>
-                    </div>
-                    <div className="cardInfoGroup">
-                          <p className="infoLabel">Acquired</p>
-                          <p className="infoValue">1-1-21</p>
-                    </div>
-                    <div className="cardInfoGroup">
+                          <p className="infoValue">{this.props.plant.npkPref ? this.props.plant.npkPref : ''}</p>
+                      </div>
+                  }
+                  {
+                      this.showConditional('acqDate') &&
+                      <div className="cardInfoGroup">
+                        <p className="infoLabel">Acquired</p>
+                        <p className="infoValue">{this.props.plant.acqDate ? this.props.plant.acqDate : ''}</p>
+                      </div>
+                  }
+                  {
+                      this.showConditional('location') &&
+                      <div className="cardInfoGroup">
                           <p className="infoLabel">Location</p>
-                          <p className="infoValue">Sunroom</p>
+                          <p className="infoValue">{this.props.plant.location ? this.props.plant.location : ''}</p>
                     </div>
+                  }
               </div>
         );
     }

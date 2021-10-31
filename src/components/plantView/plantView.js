@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import plantService from "../../services/plantService";
+import PantryService from "../../services/pantryService";
 
 
 import PlantHistory from "./plantHistory";
@@ -18,12 +18,17 @@ class PlantView extends React.Component {
 
     componentDidMount() {
         const {match:{params}}=this.props;
-        const plant = plantService.fetchPlant(params.plantId).then((plantData) => {
-            console.log('in plant view');
+        PantryService.fetchPlantsFromPantry().then((plantData) => {
+            let plantId = parseInt(params.plantId, 10);
             console.log(plantData);
+            // plant data is array of obj
+            // find obj where plantId === plantId
+            let plant = plantData.find((plant) => plant.plantId === plantId);
+            console.log('in plant view', plantId);
+            console.log(plant);
             this.setState({
-                plant: plantData
-            })
+                plant: plant
+            });
         });
     }
 
