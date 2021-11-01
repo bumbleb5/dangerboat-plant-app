@@ -183,14 +183,7 @@ class AddPlantForm extends React.Component {
         }).catch((error) => {
             console.log(error);
         });
-        // waterEvent: false,
-        //     waterDate: moment().format(),
-        //     fertilizeEvent: false,
-        //     fertilizeDate: moment().format(),
-        //     treatEvent: false,
-        //     treatDate: moment().format(),
-        //     repotEvent: false,
-        //     repotDate: moment().format(),
+
         if (this.state.waterEvent || this.state.fertilizeEvent || this.state.treatEvent || this.state.repotEvent) {
             PantryService.postEventForPlant(plantId, careEvent);
         }

@@ -22,15 +22,15 @@ const AddCareForm = React.lazy(() => import('./components/addCareForm/addCareFor
 
 function App (props) {
     
-    const [plants, setPlants] = useState([]);
+    // const [plants, setPlants] = useState([]);
 
-    useEffect(() => {
-        pantryService.fetchPlantsFromPantry().then((plantArr) => {
-            console.log('IN MAIN APP');
-            console.log(plantArr);
-            setPlants(plantArr);
-        });
-    }, []);
+    // useEffect(() => {
+    //     pantryService.fetchPlantsFromPantry().then((plantArr) => {
+    //         console.log('IN MAIN APP');
+    //         console.log(plantArr);
+    //         setPlants(plantArr);
+    //     });
+    // }, []);
 
 
 
@@ -60,7 +60,7 @@ function App (props) {
                         <AddCareForm />
                     </Route>
                     <Route exact path="/">
-                        {plants.length > 0 && <GardenCollection plants={plants}/>}
+                        <GardenCollection />
                     </Route>
                     <Route path="/plantView/:plantId" component={ PlantView }>
                     </Route>
