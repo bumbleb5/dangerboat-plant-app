@@ -1,6 +1,8 @@
 import React from 'react';
 // import plantService from "../../services/plantService";
 
+import moment from 'moment';
+
 import SliderComponent from '../reusableComponents/slider';
 
 import Icon from '@mdi/react';
@@ -78,7 +80,7 @@ class PlantInfo extends React.Component {
                       this.showConditional('acqDate') &&
                       <div className="cardInfoGroup">
                         <p className="infoLabel">Acquired</p>
-                        <p className="infoValue">{this.props.plant.acqDate ? this.props.plant.acqDate : ''}</p>
+                        <p className="infoValue">{this.props.plant.acqDate ? moment(this.props.plant.acqDate).format("MMM Do YY") : ''}</p>
                       </div>
                   }
                   {
