@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PantryService from '../../services/pantryService';
+
 import './plantHistory.css';
 
 class PlantHistory extends React.Component {

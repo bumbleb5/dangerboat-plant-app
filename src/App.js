@@ -1,6 +1,6 @@
 // import dotenv from 'dotenv'
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 // import axios from 'axios';
 import plantService from './services/plantService';
@@ -20,16 +20,20 @@ import './App.css';
 const AddPlantForm = React.lazy(() => import('./components/addPlantForm/addPlantForm'));
 const AddCareForm = React.lazy(() => import('./components/addCareForm/addCareForm'));
 
-class App extends React.Component {
+function App (props) {
     
-    constructor(props) {
-        super(props);
-        this.state = {
-            plants: [],
-        };
-    }
+    const [plants, setPlants] = useState([]);
 
-    componentDidMount() {
+    useEffect(() => {
+        pantryService.fetchPlantsFromPantry().then((plantArr) => {
+            console.log('IN MAIN APP');
+            console.log(plantArr);
+            setPlants(plantArr);
+        });
+    }, []);
+
+
+
         // // TODO: refactor for plantsService
         // console.log('Getting plants');
         // axios.get('/plants').then((response) => {
@@ -43,37 +47,27 @@ class App extends React.Component {
         //         plants: plantArr
         //     });
         // });
-        pantryService.fetchPlantsFromPantry().then((plantArr) => {
-            console.log('IN MAIN APP');
-            console.log(plantArr);
-            this.setState({
-                plants: plantArr
-            });
-        });
-    }
 
-    render() {
-        return (
-            <main className="App">
-                <NavBar />
-                <Suspense fallback={<p>Loading...</p>}>
-                    <Switch basename="/">
-                        <Route path="/addPlant">
-                            <AddPlantForm />
-                        </Route>
-                        <Route path="/addCare">
-                            <AddCareForm />
-                        </Route>
-                        <Route exact path="/">
-                            <GardenCollection plants={this.state.plants}/>
-                        </Route>
-                        <Route path="/plantView/:plantId" component={ PlantView }>
-                        </Route>
-                    </Switch>
-                </Suspense>
-            </main>
-        );
-    }
+    return (
+        <main className="App">
+            <NavBar />
+            <Suspense fallback={<p>Loading...</p>}>
+                <Switch basename="/">
+                    <Route path="/addPlant">
+                        <AddPlantForm />
+                    </Route>
+                    <Route path="/addCare">
+                        <AddCareForm />
+                    </Route>
+                    <Route exact path="/">
+                        {plants.length > 0 && <GardenCollection plants={plants}/>}
+                    </Route>
+                    <Route path="/plantView/:plantId" component={ PlantView }>
+                    </Route>
+                </Switch>
+            </Suspense>
+        </main>
+    );
 
 }
 

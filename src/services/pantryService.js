@@ -35,13 +35,17 @@ const fetchEventsForPlant = async (plantId) => {
 const postEventForPlant = async (plantId, event) => {
     try {
         // try to put new event
+        console.log('posting plant');
         await axios.put(process.env.REACT_APP_PANTRY_URL + process.env.REACT_APP_PANTRY_ID + '/basket/Events-' + plantId, event).then((response) => {
             console.log(response);
         });
-    } catch {
+    } catch (error) {
         // catch failure of basket not existing with new basket
+        console.log('in handling block, posting new basket');
         await axios.post(process.env.REACT_APP_PANTRY_URL + process.env.REACT_APP_PANTRY_ID + '/basket/Events-' + plantId, event).then((response) => {
             console.log(response);
+        }).catch((err) => {
+            console.log(err);
         });
     }
 };

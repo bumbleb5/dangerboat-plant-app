@@ -2,7 +2,7 @@
     border: 2px solid #718E67;
     border-radius: 10px;
     width: 95%;
-    min-height: 200px;
+    height: 300px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: .5fr 1fr;

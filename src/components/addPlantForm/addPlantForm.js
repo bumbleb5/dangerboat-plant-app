@@ -10,22 +10,26 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
-import TextField from '@mui/material/TextField';
-import DatePicker from '@mui/lab/DatePicker';
-// import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DateAdapter from '@mui/lab/AdapterMoment';
-// import Grid from '@mui/material/Grid';
-import Checkbox from '@mui/material/Checkbox';
-import Tooltip from '@mui/material/Tooltip';
-import Stack from '@mui/material/Stack';
-import Slider from '@mui/material/Slider';
+import Alert from "@mui/material/Alert";
+// import TextField from '@mui/material/TextField';
+// import DatePicker from '@mui/lab/DatePicker';
+// // import AdapterDateFns from '@mui/lab/AdapterDateFns';
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import DateAdapter from '@mui/lab/AdapterMoment';
+// // import Grid from '@mui/material/Grid';
+// import Checkbox from '@mui/material/Checkbox';
+// import Tooltip from '@mui/material/Tooltip';
+// import Stack from '@mui/material/Stack';
+// import Slider from '@mui/material/Slider';
+//
+// import Icon from '@mdi/react';
+// import {mdiWater} from '@mdi/js';
+// import {mdiWaterOutline} from '@mdi/js';
+// import {mdiBrightness5} from '@mdi/js';
+// import {mdiBrightness7} from '@mdi/js';
 
-import Icon from '@mdi/react';
-import {mdiWater} from '@mdi/js';
-import {mdiWaterOutline} from '@mdi/js';
-import {mdiBrightness5} from '@mdi/js';
-import {mdiBrightness7} from '@mdi/js';
+import PantryService from '../../services/pantryService';
+import {uuidv4} from '../../services/utils/uuidv4';
 
 import BasicInfoForm from './reusableForms/basicInfoForm';
 import MoreDeetsForm from './reusableForms/moreDeetsForm';
@@ -76,6 +80,7 @@ class AddPlantForm extends React.Component {
             // stepper state
             activeStep: 0,
             skipped: new Set(),
+            isError: false,
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -98,11 +103,29 @@ class AddPlantForm extends React.Component {
         return this.state.skipped.has(step);
     }
 
+    isRequiredNull() {
+        if (this.state.activeStep === 0) {
+            if (this.state.commonName.trim() === '' || this.state.commonName === null) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false
+    }
+
     handleNext = () => {
         let newSkipped = this.state.skipped;
         if (this.isStepSkipped(this.state.activeStep)) {
             newSkipped = new Set(newSkipped.values());
             newSkipped.delete(this.state.activeStep);
+        }
+
+        if (this.isRequiredNull()) {
+            this.setState({
+                isError: true,
+            });
+            return;
         }
 
         this.setState({
@@ -121,32 +144,46 @@ class AddPlantForm extends React.Component {
     handleSubmit() {
         const formattedNPK = this.formatNPK();
 
-        const basicInfo = {
-            commonName: this.state.commonName,
-            nickname: this.state.nickname,
-            botName: this.state.botName,
-            acqDate: this.state.useAcqDate ? this.state.acqDate : null,
+        const plantId = uuidv4();
+
+        const eventId = uuidv4();
+
+        const plantInfo = {
+             [plantId]: {
+                 plantId: plantId,
+                 commonName: this.state.commonName,
+                 nickname: this.state.nickname,
+                 botName: this.state.botName,
+                 acqDate: this.state.useAcqDate ? this.state.acqDate : null,
+                 lightPref: this.state.lightPref === 0 ? null : this.state.lightPref,
+                 waterPref: this.state.waterPref === 0 ? null : this.state.waterPref,
+                 npkPref: this.state.npkReq ? formattedNPK : null,
+                 location: this.state.location === '' ? null : this.state.location,
+             }
         };
 
-        const moreDetails = {
-            lightPref: this.state.lightPref === 0 ? null : this.state.lightPref,
-            waterPref: this.state.waterPref === 0 ? null : this.state.waterPref,
-            npkPref: this.state.npkReq ? formattedNPK : null,
-            location: this.state.location === '' ? null : this.state.location,
+        const careEvent = {
+            [eventId]: {
+                waterDate: this.state.waterEvent ? this.state.waterDate : null,
+                fertilizeDate: this.state.fertilizeEvent ? this.state.fertilizeDate : null,
+                treatEvent: this.state.treatEvent ? this.state.treatDate : null,
+                repotEvent: this.state.repotEvent ? this.state.repotDate : null,
+            }
         };
 
-        const careDetails = {
-            waterDate: this.state.waterEvent ? this.state.waterDate : null,
-            fertilizeDate: this.state.fertilizeEvent ? this.state.fertilizeDate : null,
-            treatEvent: this.state.treatEvent ? this.state.treatDate : null,
-            repotEvent: this.state.repotEvent ? this.state.repotDate : null,
-        };
+
 
         console.log('Submitting!');
 
-        console.log(basicInfo);
-        console.log(moreDetails);
-        console.log(careDetails);
+        console.log(plantInfo);
+        console.log(careEvent);
+
+        PantryService.postNewPlantToPantry(plantInfo).then((res) => {
+            alert('We received your plant, head over to your garden collection to view it.');
+        }).catch((error) => {
+            console.log(error);
+        });
+        PantryService.postEventForPlant(plantId, careEvent);
     }
 
     handleBack = () => {
@@ -189,10 +226,25 @@ class AddPlantForm extends React.Component {
     //     console.log('submit');
     // }
 
+    // this listens if a backspace is pressed while typing in common name
+    // onKeyDownCommonName = (e) {
+    //     if (e.keyCode === 8) {
+    //         console.log('delete');
+    //         let newName = this.state.commonName;
+    //     }
+    // },
+
     handleChange(e) {
         console.log(e.target.id);
         let field = e.target.id;
         let value = e.target.value;
+        if (field === 'commonName') {
+            if (value.trim() !== '') {
+                this.setState({
+                    isError: false
+                });
+            }
+        }
         this.setState({ [field]: value });
     }
 
@@ -339,6 +391,7 @@ class AddPlantForm extends React.Component {
             <Card sx={{ width: '75%', margin: '40px auto' }}>
                 <CardContent>
                     <Box sx={{ width: '100%' }}>
+                        {this.state.isError === true && <Alert severity="info">Common name is a required field</Alert>}
                         <Stepper activeStep={this.state.activeStep}>
                             {steps.map((label, index) => {
                                 const stepProps = {};
