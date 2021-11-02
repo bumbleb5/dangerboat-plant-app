@@ -1,59 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import moment from 'moment';
 
 import './plantCard.css';
 
-class PlantCard extends React.Component {
+function PlantCard (props) {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            plant: this.props.plant
-        }
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         plant: this.props.plant
+    //     }
+    // }
+
+    const [plant, setPlant] = useState(props.plant);
+
+    // useEffect(() => {
+    //     setPlant(props.plant);
+    //     console.log(plant);
+    // }, []);
 
     // componentDidMount() {
     //     console.log('Hello Plant Card');
     //     console.log(this.state.plant);
     // }
-
-    render() {
-        return (
+     return (
             <div className="plantCard">
                 <div>
-                    <Link className="plantCardName" to={ "/plantView/" + this.state.plant.plantId } plant={ this.state.plant }><h2>{ this.state.plant.commonName }</h2></Link>
+                    <Link className="plantCardName" to={ "/plantView/" + plant.plantId } plant={ plant }><h2>{ plant.commonName }</h2></Link>
                 </div>
                 <div>
                     <table className="plantInfoTable">
                         <tbody>
-                            {this.state.plant.waterPref && <tr>
+                            {plant.waterPref && <tr>
                                 <td className="plantCardLabel">Water needs:</td>
-                                <td className="plantCardData">{this.state.plant.waterPref ? this.state.plant.waterPref : 'add water needs'}</td>
+                                <td className="plantCardData">{plant.waterPref ? plant.waterPref : 'add water needs'}</td>
                             </tr>}
-                            {this.state.plant.lightPref && <tr>
+                            {plant.lightPref && <tr>
                                 <td className="plantCardLabel">Light needs:</td>
-                                <td className="plantCardData">{this.state.plant.lightPref ? this.state.plant.lightPref : 'add light needs'}</td>
+                                <td className="plantCardData">{plant.lightPref ? plant.lightPref : 'add light needs'}</td>
                             </tr>}
-                            {this.state.plant.npkPref && <tr>
+                            {plant.npkPref && <tr>
                                 <td className="plantCardLabel">Fertilizer needs:</td>
-                                <td className="plantCardData">{this.state.plant.npkPref ? this.state.plant.npkPref : 'add fertilizer needs'}</td>
+                                <td className="plantCardData">{plant.npkPref ? plant.npkPref : 'add fertilizer needs'}</td>
                             </tr>}
-                            {this.state.plant.location && <tr>
+                            {plant.location && <tr>
                                 <td className="plantCardLabel">Location:</td>
-                                <td className="plantCardData">{this.state.plant.location ? this.state.plant.location : 'add location'}</td>
+                                <td className="plantCardData">{plant.location ? plant.location : 'add location'}</td>
                             </tr>}
-                            {this.state.plant.acqDate && <tr>
+                            {plant.acqDate && <tr>
                                 <td className="plantCardLabel">Acquired:</td>
-                                <td className="plantCardData">{this.state.plant.acqDate ? moment(this.state.plant.acqDate).format("MMM Do YY") : 'add acquisition date'}</td>
+                                <td className="plantCardData">{plant.acqDate ? moment(plant.acqDate).format("MMM Do YY") : 'add acquisition date'}</td>
                             </tr>}
                         </tbody>
                     </table>
                     </div>
             </div>
-        );    
-    }
+     );
 }
 
 export default PlantCard;
