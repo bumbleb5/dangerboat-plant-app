@@ -19,11 +19,12 @@ class PlantView extends React.Component {
     componentDidMount() {
         const {match:{params}}=this.props;
         PantryService.fetchPlantsFromPantry().then((plantData) => {
-            let plantId = parseInt(params.plantId, 10);
+            let plantId = params.plantId;
+            console.log(plantId);
             console.log(plantData);
             // plant data is array of obj
             // find obj where plantId === plantId
-            let plant = plantData.find((plant) => plant.plantId === plantId);
+            let plant = plantData.find((plant) => plant.plantId == plantId);
             console.log('in plant view', plantId);
             console.log(plant);
             this.setState({
