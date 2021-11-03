@@ -36,11 +36,15 @@ class PlantInfo extends React.Component {
     // }
     componentDidMount() {
         console.log(this.props.plant);
-        console.log(typeof this.props.plant.npkPref);
+        // console.log(typeof this.props.plant.npkPref);
     }
 
     showConditional(property) {
-        return this.props.plant.hasOwnProperty(property);
+        // if the plant has the property and its not null or empty string
+        // return this.props.plant.hasOwnProperty(property) && (this.props.plant[property] !== null || this.props.plant[property].trim() !== '');
+        if (this.props.plant.hasOwnProperty(property)) {
+            return !(this.props.plant[property] === undefined || this.props.plant[property] === null);
+        }
     }
 
     render() {
@@ -49,26 +53,32 @@ class PlantInfo extends React.Component {
                     <div>
                         <h4 className="plantCardBotName"><em>{this.props.plant.botName}</em></h4>
                     </div>
-                    <div className="cardInfoGroup">
-                        <p className="infoLabel">Light </p>
-                        <div className="infoValue">
-                            <div style={{display:'flex','alignItems':'center', 'justifyContent': 'space-evenly'}}>
-                                <Icon path={mdiBrightness5} title="less light" size={1} color="grey" />
-                                <SliderComponent value={this.props.plant.lightPref}/>
-                                <Icon path={mdiBrightness7} title="more light" size={1} color="grey" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="cardInfoGroup">
-                        <p className="infoLabel">Water</p>
-                        <div className="infoValue">
-                            <div style={{display:'flex','alignItems':'center', 'justifyContent': 'space-evenly'}}>
-                                <Icon path={mdiWaterOutline} title="less water" size={1} color="grey"/>
-                                <SliderComponent value={this.props.plant.waterPref} />
-                                <Icon path={mdiWater} title="more water" size={1} color="grey" />
-                            </div>
-                        </div>
-                    </div>
+                  {
+                      this.showConditional('lightPref') &&
+                      <div className="cardInfoGroup">
+                      <p className="infoLabel">Light </p>
+                      <div className="infoValue">
+                          <div style={{display: 'flex', 'alignItems': 'center', 'justifyContent': 'space-evenly'}}>
+                              <Icon path={mdiBrightness5} title="less light" size={1} color="grey"/>
+                              <SliderComponent value={this.props.plant.lightPref}/>
+                              <Icon path={mdiBrightness7} title="more light" size={1} color="grey"/>
+                          </div>
+                      </div>
+                  </div>
+                  }
+                  {
+                      this.showConditional('waterPref') &&
+                      <div className="cardInfoGroup">
+                      <p className="infoLabel">Water</p>
+                      <div className="infoValue">
+                          <div style={{display: 'flex', 'alignItems': 'center', 'justifyContent': 'space-evenly'}}>
+                              <Icon path={mdiWaterOutline} title="less water" size={1} color="grey"/>
+                              <SliderComponent value={this.props.plant.waterPref}/>
+                              <Icon path={mdiWater} title="more water" size={1} color="grey"/>
+                          </div>
+                      </div>
+                  </div>
+                  }
                   {
                       this.showConditional('npkPref') &&
                       <div className="cardInfoGroup">
